@@ -1,30 +1,43 @@
-import shutil
-import os
+import shutil, os, subprocess, time
 
+'''
+lan=raw_input('Please enter 3 letter language token: ')
+voice=raw_input('Please enter the voice name: ')
+ref_vop=raw_input('Please enter the reference vop version: ')
+tar_vop=raw_input('Please enter the target vop version: ')
+'''
 
 lan='ROR'
 language = 'romanian'
 voice='ioana'
 ref_vop='2.0.0'
 tar_vop='2.0.1-SNAPSHOT'
-test_path = 'E:\Users\Shanshan.Xu\\tests'
+test_path = 'E:\Users\SpO_MS_VOP'+'\\'+lan+'\\'+ voice +'\\'
 ex = '.utf8'
 
+langmap={}
+with open('E:/Users/Andreas.Windmann/scripts/langmap.txt') as f:
+    for line in f:
+        rline=line.replace('\n','')
+        
+        (key, val) = rline.split('\t')
+        langmap[key] = val
 
+language = langmap[lan]    
 current_path = os.getcwd()
 #VOP_RT_ref-e-h-1-1-5_target-e-h-1-1-6-snapshot
-work_path = lan+'\\'+ voice + '\\VOP_RT_ref-e-h-' + ref_vop.replace('.','-') + '_target-e-h-' +tar_vop.replace('.','-')
-text_path = test_path + '\\' + work_path +  '\\input_text'
-wav_path = test_path + '\\' + work_path +  '\\' 
+rt_name = 'VOP_RT_ref-e-h-' + ref_vop.replace('.','-') + '_target-e-h-' +tar_vop.replace('.','-')
+work_path = os.path.abspath('../../stages')+'\\'+lan+'\\'+ voice +'\\'+rt_name
+text_path = test_path + '\\' + rt_name +  '\\input_text'
+wav_path = test_path + '\\' + rt_name +  '\\' 
 
 
 
 #current_path = os.getcwd()
 
-work_path = 'E:\Users\Shanshan.Xu\stages'+'\\'+lan+'\\'+ voice + '\\MS-VOP-RT_' + ref_vop.strip('.') + '_' +tar_vop.strip('.')
+#work_path = 'E:\Users\Shanshan.Xu\stages'+'\\'+lan+'\\'+ voice + '\\MS-VOP-RT_' + ref_vop.strip('.') + '_' +tar_vop.strip('.')
 
-def stage():
-    os.system("stage versions.txt .")
+
 
 def rt_procedures(vop):
     vop_nr = vop.replace('.', '')
@@ -69,8 +82,8 @@ def rt_procedures(vop):
     o.close()
 
 #download stages
-    #os.chdir(vop_folder)
-    #stage()
+    stage=subprocess.Popen(["E:\Users\Shanshan.Xu\stages\staging-tools-1.12.21-SNAPSHOT\\bin\stage.exe",version_file,vop_folder],shell=True)
+    stage.wait()
 
 rt_procedures(ref_vop)
 
