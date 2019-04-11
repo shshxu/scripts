@@ -34,31 +34,44 @@ def get_lan_id_list(f):
     result_file = work_path + '\\' + f
     print(result_file)
     df = pd.read_csv(result_file, header=0, delimiter = ';')
-    df= df[df['Result']=='FAIL']
-    df_id = df['ID']
-    if isinstance(df_id,str):
-        id_list.append(df_id)
+    df = df.set_index(['Result'])
+    id_list = []
+    id_c= df.loc['FAIL']['ID']
+    if isinstance(id_c,str):
+        id_list.append(id_c)
     else:
-        id_list = df_id.tolist()
+        id_list = id_c.tolist()
+    
+
+
+
     return f_name, id_list
 
 
 def extract_file(id_name, f_name, j_path, copy_path):
     print(f_name)
+    '''CHANGE THE PATH HERE'''
     #path = "\\\\ac-srvfile01\SpeechOutput2\Jenkins\p4projects\\autops_mib3_audi_speechoutput_main\AUDI_high" + "\\"+ f_name+ "\_testing\_spec_implicit_wav\_test_data"
     #print path
     #path = "\\\\ac-srvfile01\\SpeechOutput2\\Jenkins\\p4projects\\autops_mib3_audi_speechoutput_main\\AUDI_high\\tts_regression" + "\\"+ f_name
     os.chdir(j_path)
-    #onlyfiles = [ f for f in listdir(j_path) if isfile(join(j_path,f))]
+    onlyfiles = [ f for f in listdir(j_path) if isfile(join(j_path,f))]
     #id_name_fg = id_name +'_'+ time_stamp
     print(id_name)
-    os.chdir(j_path)
-    for i in id_list:
-        for ext in ex_list = ['1.tso','wav']:
-            baseline_name = i + ext
-            o_path = j_path + '\\' + o
-            n_path = copy_path + "\\" + o
-            shutil.copyfile(o_path, n_path)
+    for o in onlyfiles:
+        o_name = o.split('.', 1)
+        if o_name[0] == id_name:
+            if o_name[1] in ex_list:
+                os.chdir(j_path)
+                o_path = j_path + '\\' + o
+                #n_name = id_name + '.' + o_name[1]
+                # shutil.move('C:/Users/xiaoxinsoso/Desktop/aaa', 'C:/Users/xiaoxinsoso/Desktop/bbb') 
+                n_path = copy_path + "\\" + o
+                
+                #n_path = "\\\\aac-srvjenkins01\DATA\p4projects\\autops_mib2_speechoutput_main-mib2plus\PAG\\tts_regression\\frf_monique" + "\\" + n_name
+                shutil.copyfile(o_path, n_path)
+
+
 
 
 for f in csv_files:
