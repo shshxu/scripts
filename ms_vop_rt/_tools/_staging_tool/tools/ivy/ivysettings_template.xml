@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings>
+    <caches defaultCacheDir="%(cachedir)s"
+            lockStrategy="artifact-lock-nio" />
+    
+    <settings defaultResolver="main"/>
+    
+    <credentials host="%(server_host)s"
+                 realm="Artifactory Realm"/>
+                 <!-- 
+                 username="%(server_username)s"
+                 passwd="%(server_password)s" /> 
+                 -->
+
+    <property name="tts-release"
+              value="%(server_scheme)s://%(server_host)s:%(server_port)s%(server_path)s/%(repo-release)s"/>
+    <property name="tts-snapshot"
+              value="%(server_scheme)s://%(server_host)s:%(server_port)s%(server_path)s/%(repo-snapshot)s"/>
+
+    <resolvers>
+        <chain name="main"
+               checkmodified="true"
+               changingPattern=".*-SNAPSHOT">
+          <ibiblio name="tts-release"
+                   m2compatible="true"
+                   root="${tts-release}"/>
+          <ibiblio name="tts-snapshot"
+                   m2compatible="true"
+                   root="${tts-snapshot}"
+                   checkmodified="true"
+                   changingPattern=".*-SNAPSHOT"/>              
+        </chain>
+    </resolvers>
+</ivysettings>

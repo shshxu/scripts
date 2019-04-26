@@ -1,0 +1,2 @@
+platform_zip#/#com.nuance.vocalizer.engine#ve#win64-dev#3.4.3
+zip#languages/common#com.nuance.vocalizer.data.languages#common#1.0.16

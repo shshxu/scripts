@@ -1,0 +1,101 @@
+ARB	Bahraini Arabic
+ARE	Egyptian Arabic
+ARG	Gulf Arabic
+ARK	Kuwaiti Arabic
+ARQ	Qatari Arabic
+ARS	Saudi Arabic
+ARO	Omani Arabic
+ARA	UAE Arabic
+ARW	Arabic
+AMA	Armenian
+BAE	Basque
+BEI	Indian Bengali
+BHI	Bhojpuri
+BGB	Bulgarian
+CAH	Cantonese
+CAA	Andorran Catalan
+CAE	Catalan
+HRH	Croatian
+CZC	Czech
+DAD	Danish
+FAA	Dari
+FAP	Pakistani Dari
+DUB	Belgian Dutch
+DUN	Dutch
+ENA	Australian English
+ENC	Canadian English
+ENI	Indian English
+ENE	Irish English
+ENN	New Zealand English
+ENS	Scottish English
+EGS	Singapore English
+ENZ	South African English
+ENG	British English
+ENU	American English
+FAI	Farsi
+FIF	Finnish
+FRB	Belgian French
+FRC	Canadian French
+FRF	French
+FRL	Luxemburg French
+FNC	Swiss French
+GLE	Galician
+GEA	Austrian German
+GEB	Belgian German
+GED	German
+GRL	Liechtenstein German
+GEL	Luxemburg German
+GEC	Swiss German
+GRG	Greek
+GUI	Gujarati
+HAH	Haitian
+HEI	Hebrew
+HII	Hindi
+HUH	Hungarian
+ISI	Icelandic
+IDI	Indonesian
+IRE	Irish
+ITI	Italian
+ITC	Swiss Italian
+JPJ	Japanese
+KAI	Kannada
+KSI	Kashmiri
+KOK	Korean
+LTX	Luxembourgish
+LTL	Lithuanian
+MSM	Malay
+MLI	Malayalam
+MNC	Chinese Mandarin
+MNT	Taiwanese Mandarin
+MAI	Marathi
+NON	Norwegian
+ORI	Oriya
+PUI	Punjabi
+PLP	Polish
+PTB	Brazilian Portuguese
+PTP	Portuguese
+ROR	Romanian
+RUR	Russian
+SHC	Shanghainese
+SIC	Sichuanese
+SKS	Slovak
+SLS	Slovenian
+SPO	Altiplano Spanish
+SPA	Argentinian Spanish
+SPL	Chilean Spanish
+SPC	Colombian Spanish
+SPM	Mexican Spanish
+SPE	Spanish
+SPU	American Spanish
+SWF	Finland Swedish
+SWS	Swedish
+TAI	Tamil
+TEI	Telugu
+THT	Thai
+TRT	Turkish
+UKU	Ukrainian
+URP	Urdu
+VAE	Valencian
+VIV	Vietnamese
+WLG	Welsh
+WUC	Wu
