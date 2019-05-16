@@ -1,8 +1,55 @@
 import shutil, os, subprocess, time, filecmp
+import requests
+import lxml.html as lh
+import pandas as pd
+from distutils.version import LooseVersion
 
-stg_dict = dict([(i, stg) for (i,stg) in enumerate(os.listdir('E:\Users\SpO_MS_VOP\_stage'))])
+
+stg_dict = dict([(i, stg) for (i,stg) in enumerate(sorted(os.listdir('E:\Users\SpO_MS_VOP\_stage')))])
 for(k,v) in stg_dict.items():
     print("{k}: {v}".format(k=k,v=v))
+
+def get_latest_version(url):
+    page = requests.get(url)
+    #Store the contents of the website under doc
+    doc = lh.fromstring(page.content)
+    #Parse data that are stored between <tr>..</tr> of HTML
+    tr_elements = doc.xpath('//tr')
+
+    #Create empty list
+    col_name = []
+    #For each row, store each first element (header) and an empty list
+    for t in tr_elements[0]:
+        name=t.text_content()
+        #print(name)
+        col_name.append(name)
+    col_name= col_name[:-2]
+    #print(col_name)
+
+    #Since out first row is the header, data is stored on the second row onwards
+    rows=[]
+    for j in range(2,len(tr_elements)):
+        #T is our j'th row
+        T=tr_elements[j]
+        #Iterate through each element of the row
+        row = []
+        for t in T.iterchildren():
+            data=t.text_content() 
+            row.append(data)
+        rows.append(row[:-2])
+
+    df=pd.DataFrame(rows, columns =col_name )
+    #print(url)
+    if 'engine' in url:
+        df_reduced = df[df['Product']=='ve'][df['Platform']=='win64'][df["Version"].str.contains('SNAPSHOT')==0]
+    else:
+        df_reduced = df
+        
+    versions = df_reduced['Version'].tolist()
+    version_latest = sorted(versions, key=LooseVersion)[-1]
+    return version_latest
+    #print(version_latest)
+    
 
 stage=raw_input('Choose a stage (e.g. 0, 1, or n for a new stage): ').lower()
 if stage == 'tttt':
@@ -16,14 +63,14 @@ if stage == 'tttt':
     stage = 'x'
 
 wd = 'E:\Users\SpO_MS_VOP'
-def new_stage(vop):
+def new_stage(vop, lines):
     vop_path = stage_path + '\_' + vop
     os.makedirs(vop_path)
     ver_path = vop_path + '\\versions.txt'
     version_file = open(ver_path, 'w+')
-    version_file.writelines(v_lines)
+    version_file.writelines(lines)
     version_file.close()
-    print ('*********** Downloading new stage '+ vop + '...**********')
+    print ('####################### \n Downloading new stage '+ vop + '...\n#######################')
     stage=subprocess.Popen(["E:\Users\SpO_MS_VOP\_tools\_staging_tool\\bin\stage.exe",ver_path,vop_path],shell=True)
     stage.wait()
     print ('############## '+vop + ' stage downloaded ##################')
@@ -39,11 +86,54 @@ if stage == 'n':
     v_lines = [line.replace('engine_nr',engine_nr) for line in v_lines]
     v_lines = [line.replace('cmn_nr',cmn_nr) for line in v_lines]
     stage_path =  wd + '\_stage' + '\\' + stage
-    new_stage('ref')
-    new_stage('tar')
+    new_stage('ref',v_lines)
+    new_stage('tar',v_lines)
 else:
     stage = stg_dict[int(stage)]
     stage_path =  wd + '\_stage' + '\\' + stage
+    if stage == 'main-line':
+        url_engine='http://aac-srvtts-tools/vocaholic/engine/all/'
+        url_common = 'http://aac-srvtts-tools/vocaholic/common/release/'
+        engine_latest = get_latest_version(url_engine)
+        common_latest = get_latest_version(url_common)
+        with open(stage_path+'\_ref\\versions.txt') as v:
+            v_lines = v.readlines()
+        v.close()
+        engine_nr = v_lines[0].split('#')[-1].strip('\n')
+        cmn_nr = v_lines[1].split('#')[-1].strip('\n')
+        #print(engine_nr,cmn_nr)
+        #print(engine_latest, common_latest)
+        #for line in lines:
+            #v_lines.append(line)
+        i = 1
+        if engine_latest == engine_nr:
+            pass
+        else:
+            i = 0
+            v_lines = [line.replace(engine_nr, engine_latest) for line in v_lines]
+        if common_latest == cmn_nr:
+            pass
+        else:
+            i = 0
+            v_lines = [line.replace(cmn_nr, common_latest) for line in v_lines]
+        if i == 1:
+            print('####################### \n main-line stage has the latest engine and common \n#######################')
+            #print(v_lines)
+        else:
+            print('####################### \n Found later version of the main-line stage, downloading new main-line stage \n#######################')
+            #print(v_lines)
+            shutil.rmtree(stage_path)
+            #os.makedirs(stage_path)
+            new_stage('ref')
+            new_stage('tar')
+ 
+
+
+        '''
+        platform_zip#/#com.nuance.vocalizer.engine#ve#win64-dev#engine_nr
+        zip#languages/common#com.nuance.vocalizer.data.languages#common#cmn_nr
+'''
+
 
 
 lan=raw_input('Please enter 3 letter language token (e.g. PTP): ').upper()
@@ -205,9 +295,9 @@ if extra_test ==  'x':
 else:
     lines = [line.replace('extra_path',extra_path) for line in lines]
 if no_suite  == 't':
-    print '****************** \n No test suites found, please fetch the test suite manually, and then run the batch files. \n******************'
+    print '####################### \n No test suites found, please fetch the test suite manually, and then run the batch files. \n#######################'
 elif len(mismatch) == 0:
-    print 'congratulation! No regressions.'
+    print '####################### \n congratulation! No regressions.\n#######################'
     lines = [line.replace('Match_Result','PCM Match: 100% \nTSO Match: 100% ') for line in lines]
 else:
     percent= len(mismatch)/ len_tar
@@ -215,7 +305,7 @@ else:
     lines.append('Mistmatch List: \n')
     for m in mismatch:
         lines.append(m + '\n')
-    print '****************** \n Regression test fails. Please check the readme file for the mismatch list. \n******************'
+    print '####################### \n Regression test fails. Please check the readme file for the mismatch list. \n#######################'
 #MS_trt_yelda_E-H_2-0-2_RT_readme.txt
 readme_file =  rt_path +   'MS_'+lan.lower()+'_'+voice+'_E-H_'+tar_vop.replace('.','-').strip('-SNAPSHOT')+'_RT_readme.txt'
 o = open(readme_file, 'w+')

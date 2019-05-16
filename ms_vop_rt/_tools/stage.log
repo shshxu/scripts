@@ -1,0 +1,7 @@
+[2019-05-16 16:52:09,236] MainThread      - INFO    : VERSION 1.13.2.dev0
+[2019-05-16 16:52:09,237] MainThread      - INFO    : Using 've' as default product field. Use --product to overwrite.
+[2019-05-16 16:52:09,246] MainThread      - INFO    : 1/2: platform_zip / com.nuance.vocalizer.engine ve win64-dev 2.1.0-SNAPSHOT
+[2019-05-16 16:52:09,247] MainThread      - INFO    : Stage ve-2.1.0-SNAPSHOT (win64-dev) into /
+[2019-05-16 16:52:10,635] MainThread      - INFO    : Found latest timestamp 20151219.045009-1 for package ve-2.1.0-SNAPSHOT-win64-dev.zip.
+[2019-05-16 16:52:11,153] MainThread      - INFO    : Package ve-2.1.0-SNAPSHOT-win64-dev.zip found in cache directory with same checksum.
+[2019-05-16 16:52:11,677] MainThread      - WARNING : Extracting all data while we should only extract what is defined in package.json
