@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html lang="en-us">
+<head>
+
+  <style type="text/css">
+&lt;!--
+h1, h2, h3, h4, h5 { font-family: Verdana, Arial, Helvetica,
+sans-serif;color:#3A6CA0}
+H1 {font-size:medium; font-weight: bold; }
+h2 {font-size:small;font-weight: bold}
+h3 {font-size:small}
+h4 {font-size:small;font-style: italic}
+h5 {font-size:x-small;font-style: italic}
+h6 {font-size:x-small;font-weight: regular; }
+th {font-family: Verdana, Arial, Helvetica, sans-serif;font-weight: bold;
+font-size:small}
+p, li, ol, ul, td, dl, blockquote { font-family:Arial Unicode MS, Lucida Sans Unicode,
+Verdana, Arial, Helvetica, sans-serif; font-size:small}
+code, pre {font-family:Courier,monospace; font-size:small}
+CAPTION {text-align:left}
+A:active { color: #FDB14C}
+A:link { color: #3A6CA0}
+A:visited { color: #3A6CA0}
+A:hover { color: #FDB14C}
+BODY {
+font-family:Arial Unicode MS, Verdana, Arial, Helvetica, sans-serif;
+background: #FFFFF7;
+}
+--&gt;
+  </style>
+  <title>Language Supplement for %(language)s, front end configuration %(fe_cfg)s</title>
+
+
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+</head>
+
+<body>
+
+<blockquote>
+  <h1 class="Heading1">Language Supplement for %(language)s, front end configuration %(fe_cfg)s</h1>
+
+  <h3 class="Heading3">
+Nuance&reg; %(product_name)s 6.0</h3>
+
+  <h3 class="Heading3">%(releasedate)s</h3>
+
+  <p class="BodyLevel1">
+This language supplement describes issues that are particular to the %(language)s
+text-to-speech system. It complements the <i>%(product_name)s Developer's Guide</i>, which describes the API and the language independent properties of
+the Vocalizer text-to-speech system.</p>
+
+
+  <p class="BodyLevel1">
+This document includes these sections:</p>
+
+  <ul>
+
+    <li class="BulletLevel1">
+      <a href="#input_format" class="XRef">Input format</a></li>
+
+    <li class="BulletLevel1">
+      <a href="#text_normalization" class="XRef">Text normalization</a></li>
+
+    <li class="BulletLevel1">
+      <a href="#phonetic" class="XRef">Phonetic alphabets</a></li>
+
+    <li class="BulletLevel1">
+      <a href="#comments_support" class="XRef">Comments and technical support</a></li>
+
+  </ul>
+
+  <p class="BodyLevel1">
+This document uses the
+font Arial Unicode MS to display IPA characters and other special
+characters in the Phonetic alphabets section. Arial Unicode MS is
+normally distributed with Microsoft Office. If the
+%(language)s characters don't appear when you view this
+document, make sure you choose View&rarr;Encoding&rarr;Unicode
+(UTF-8) in your browser.</p>
+
+  <hr color="#289728" size="1">
+  <h1 class="Heading1"><a name="input_format"></a>Input format</h1>
+
+  <p class="BodyLevel1">
+The %(language)s text-to-speech system is designed to
+pronounce any input written according to the rules of
+%(language)s orthography. </p>
+
+  <p class="BodyLevel1">
+The Vocalizer engine processes text as UTF-16 (transcoded to that if the original input used a different encoding) and thus the input may contain any character from the Unicode Basic Multilingual Plane (BMP) used for any written language. However, the %(language)s TTS system
+only reads the pieces of text that consist of characters that are meaningful for %(language)s, discarding all other characters.</p>
+
+  <p class="BodyLevel1">
+For more information on Unicode and UTF-16, see the <a href="http://www.unicode.org">Unicode Consortium</a> web site.
+
+  <hr color="#289728" size="1">
+  <h1 class="Heading1"><a name="text_normalization"></a>Text normalization</h1>
+
+  <p class="BodyLevel1">
+Vocalizer supports a range of special formats for %(language)s. The formats are described in <a href="index.html">Text Normalization in %(product_name)s for %(language)s</a> and <a href="tokenizer.html">%(language)s Token Documentation</a>. The supported abbreviations are listed in  <a href="abbreviations.html">%(language)s Abbreviations </a>
+
+  <hr color="#289728" size="1">
+  <h1 class="Heading1"><a name="phonetic"></a>Phonetic alphabets</h1>
+
+  <p class="BodyLevel1">
+In the Vocalizer text-to-speech system, there are several ways to intervene directly in the pronunciation of text as described in the <i>%(product_name)s Developer's Guide</i>, including the ability to specify phonetic input using markup or user dictionaries. %(language)s
+phonetic input strings should be composed of symbols of the
+L&amp;H+ phonetic alphabet shown in the tables below (L&amp;H+
+subset for %(language)s). Please note that the punctuation symbols listed in "Other symbols" section should be inserted immediately following a phonetic symbol, without having a space or a word boundary symbol.</p>
+
+  %(phoneme_tables)s
+
+  <hr color="#289728" size="1">
+  <h1 class="Heading1"><a name="comments_support"></a>Comments and technical support</h1>
+
+  <p class="BodyLevel1">
+Send comments on Nuance documentation to <em class="URL">
+  <a href="mailto:techdoc@nuance.com" class="URL">techdoc@nuance.com</a></em>
+.</p>
+
+  <p class="BodyLevel1">
+Technical support is provided online at the <em class="URL">
+  <a href="http://network.nuance.com/" class="URL">Nuance
+Network</a></em>
+.</p>
+
+</blockquote>
+
+<hr color="#289728" size="1"> <i>
+<p><font size="1"><b>&copy; 2008 <a href="http://www.nuance.com" target="_top">Nuance
+Communications, Inc.</a> &nbsp; All Rights Reserved.</b></font></p>
+
+</i>
+</body>
+</html>

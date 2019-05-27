@@ -1,0 +1,8 @@
+<ivy-module version="2.0">
+    <info organisation="com.nuance" module="vocalizer"/>
+    <dependencies>
+      <dependency org="%(group)s" name="%(artifact)s" rev="%(rev)s">
+          <artifact name="%(artifact)s" ext="%(ext)s"/>
+      </dependency>
+    </dependencies>
+</ivy-module>
